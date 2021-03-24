@@ -26,7 +26,7 @@ def read_markets(filename):
     # stripping the pieces apart:
     while line:
         # by line
-        line = line.rstrip('\n')
+        line = line.rstrip("\n")
 
         #state, market name, street address, city, zip code, longitude, latitude.
         #0:3 are the name and location, 4 is zip, 5,6 is long lat (don't need)
@@ -57,7 +57,16 @@ def read_markets(filename):
         else:
             zip_farmers[zip_code] = [market_tuple]
 
+        if town in towns_zip.keys():
+            town_mapping = towns_zip[town]
+            town_mapping.add(zip_code)
+            town_mapping[town] = town_mapping #this may not work and need dif name
+
+        else:
+            town_mapping[town] = [market_tuple] #breaks it
+
     return zip_farmers, towns_zip
+
 
 def print_market(market):
     """
@@ -86,5 +95,25 @@ if __name__ == "__main__":
 
         # your main loop should be here
 
-    except (FileNotFoundError, IOError): 
+        input_zip = input("What is your zipcode or town? \n")
+        while True:
+            # exit if "quit"
+            if input_zip == "quit" or "Quit":
+                break
+
+            # city search
+            if input_zip.isalpha():
+                for town in towns_zip:
+
+
+            # zip code search
+            if input_zip.isnumeric():
+                for input_zip in zip_to_market:
+                    print(print_market())
+            else:
+                print("No farmers markets for that zip")
+
+
+
+    except (FileNotFoundError, IOError):
         print("Error reading {}".format(FILENAME))
