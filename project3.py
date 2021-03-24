@@ -1,3 +1,5 @@
+#Noah love
+
 def read_markets(filename):
     """
     Read in the farmers market data from the file named filename and return 
@@ -5,7 +7,17 @@ def read_markets(filename):
     1) A dictionary mapping zip codes to lists of farmers market tuples.
     2) A dictionary mapping towns to sets of zip codes.
     """
-    return {}, {} # replace this line
+    # create file, read only
+    file = open(filename, "r")
+
+    #create blanks
+    zip_farmers = {}
+    towns_zip = {}
+
+    #read
+    line = file.readline()
+
+    return zip_farmers, towns_zip
 
 def print_market(market):
     """
