@@ -1,5 +1,11 @@
 #Noah love
 
+#example sentence
+
+#   Alabama#Albertville Farmers Market#116 Main Street#Albertville#35950#-86.2092#34.2679
+#   Alabama#Alexander City Downtown Market#Braod Street#Alexander City#35010#0#0
+
+
 def read_markets(filename):
     """
     Read in the farmers market data from the file named filename and return 
@@ -10,12 +16,40 @@ def read_markets(filename):
     # create file, read only
     file = open(filename, "r")
 
-    #create blanks
+    # create blanks
     zip_farmers = {}
     towns_zip = {}
 
-    #read
+    # read
     line = file.readline()
+
+    # stripping the pieces apart:
+    while line:
+        # by line
+        line = line.rstrip('\n')
+
+        #state, market name, street address, city, zip code, longitude, latitude.
+        #0:3 are the name and location, 4 is zip, 5,6 is long lat (don't need)
+
+        # separate pieces of info (into 7 pieces)
+        market_pieces = line.split("#")
+
+        # get rid of long and lat
+        market_pieces = market_pieces[0:5]
+
+        # part name and location
+        state = market_pieces[0]
+        market_name = market_pieces[1]
+        street = market_pieces[2]
+        town = market_pieces[3]
+        zip_code = market_pieces[4]
+
+        # create a loop to map each zipcode to associated
+        #only needs to go on zips that are in our list
+        if zip_code in zip_farmers:
+            zip_farmers[zip_code] = zip_farmers[zip_code].append(market_pieces)
+        else:
+            print("Not present")
 
     return zip_farmers, towns_zip
 
