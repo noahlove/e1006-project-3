@@ -54,6 +54,9 @@ def read_markets(filename):
             zip_code_mapping.append(market_tuple)
             zip_farmers[zip_code] = zip_code_mapping
 
+            # TA suggested exlude ones without zip
+            # i.e. like 209, shows as zip = "none"
+
         else:
             zip_farmers[zip_code] = [market_tuple]
 
@@ -98,22 +101,29 @@ if __name__ == "__main__":
         input_zip = input("What is your zipcode or town? \n")
         while True:
             # exit if "quit"
+            # piazza said only terminate on quit, not on error
             if input_zip == "quit" or "Quit":
                 break
 
-            # city search
+            # sort into two loops, numeric and alphabetical
+
+            # city search (alphabetical)
+
             if input_zip.isalpha():
-                for town in towns_zip:
+                if input_zip not in zip_to_market:
+                    print("No available farmers")
+                else:
+                    for town in zip_to_market[input_zip]
+                        print(print_market(town))
 
 
             # zip code search
-            if input_zip.isnumeric():
-                for input_zip in zip_to_market:
-                    print(print_market())
-            else:
-                print("No farmers markets for that zip")
+            #if input_zip.isnumeric():
+            #    for input_zip in zip_to_market:
+            #        print(print_market())
+            #else:
+            #    print("No farmers markets for that zip")
 
 
-
-    except (FileNotFoundError, IOError):
-        print("Error reading {}".format(FILENAME))
+    except (FileNotFoundError, IOError): #given, I assume this is all error exceptions
+        print("Error reading {}".format(FILENAME))  #checks for file
