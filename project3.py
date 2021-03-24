@@ -44,15 +44,18 @@ def read_markets(filename):
         town = market_pieces[3]
         zip_code = market_pieces[4]
 
+        # make market pieces into a tuple
+        market_tuple = tuple(market_pieces)
+
         # create a loop to map each zipcode to associated
         #only needs to go on zips that are in our list
         if zip_code in zip_farmers:
             zip_code_mapping = zip_farmers[zip_code]
-            zip_code_mapping.append(market_pieces)
+            zip_code_mapping.append(market_tuple)
             zip_farmers[zip_code] = zip_code_mapping
 
         else:
-            zip_farmers[zip_code] = [market_pieces]
+            zip_farmers[zip_code] = [market_tuple]
 
     return zip_farmers, towns_zip
 
