@@ -64,7 +64,14 @@ def print_market(market):
     Returns a human-readable string representing the farmers market tuple
     passed to the market parameter.
     """
-    return "" # replace this line
+
+    readable_string = "" # initialize
+    readable_string += market[1] + "\n"  # market name
+    readable_string += market[2] + "\n"  # street name
+    readable_string += market[3] + ", " + market[0] + " " + market[4] + "\n" # town, State zip
+
+    return readable_string
+
 
 if __name__ == "__main__":
 
