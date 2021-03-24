@@ -47,9 +47,12 @@ def read_markets(filename):
         # create a loop to map each zipcode to associated
         #only needs to go on zips that are in our list
         if zip_code in zip_farmers:
-            zip_farmers[zip_code] = zip_farmers[zip_code].append(market_pieces)
+            zip_code_mapping = zip_farmers[zip_code]
+            zip_code_mapping.append(market_pieces)
+            zip_farmers[zip_code] = zip_code_mapping
+
         else:
-            print("Not present")
+            zip_farmers[zip_code] = [market_pieces]
 
     return zip_farmers, towns_zip
 
