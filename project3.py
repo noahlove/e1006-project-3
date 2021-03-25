@@ -28,8 +28,8 @@ def read_markets(filename):
         # by line
         line = line.rstrip("\n")
 
-        #state, market name, street address, city, zip code, longitude, latitude.
-        #0:3 are the name and location, 4 is zip, 5,6 is long lat (don't need)
+        # state, market name, street address, city, zip code, longitude, latitude.
+        # 0:3 are the name and location, 4 is zip, 5,6 is long lat (don't need)
 
         # separate pieces of info (into 7 pieces)
         market_pieces = line.split("#")
@@ -48,13 +48,13 @@ def read_markets(filename):
         market_tuple = tuple(market_pieces)
 
         # create a loop to map each zipcode to associated
-        #only needs to go on zips that are in our list
+        # only needs to go on zips that are in our list
         if zip_code in zip_farmers:
             zip_code_mapping = zip_farmers[zip_code]
             zip_code_mapping.append(market_tuple)
             zip_farmers[zip_code] = zip_code_mapping
 
-            # TA suggested exlude ones without zip
+            # TA suggested exclude ones without zip
             # i.e. like 209, shows as zip = "none"
 
         else:
@@ -113,8 +113,9 @@ if __name__ == "__main__":
                 if input_zip not in zip_to_market:
                     print("No available farmers")
                 else:
-                    for town in zip_to_market[input_zip]
-                        print(print_market(town))
+                    for town in zip_to_market[input_zip]:
+                        for market_name in zip_to_market[town]:
+                            print(print_market(town))
 
 
             # zip code search
@@ -124,6 +125,5 @@ if __name__ == "__main__":
             #else:
             #    print("No farmers markets for that zip")
 
-
-    except (FileNotFoundError, IOError): #given, I assume this is all error exceptions
-        print("Error reading {}".format(FILENAME))  #checks for file
+    except (FileNotFoundError, IOError): # given, I assume this is all error exceptions
+        print("Error reading {}".format(FILENAME))  # checks for file
