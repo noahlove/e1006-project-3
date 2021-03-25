@@ -117,13 +117,13 @@ if __name__ == "__main__":
                         for market_name in zip_to_market[town]:
                             print(print_market(town))
 
-
             # zip code search
-            #if input_zip.isnumeric():
-            #    for input_zip in zip_to_market:
-            #        print(print_market())
-            #else:
-            #    print("No farmers markets for that zip")
+            if input_zip.isnumeric():
+                for input_zip in zip_to_market[input_zip]:
+                    print(print_market(town))
+
+            else:
+                print("No farmers markets for that zip")
 
     except (FileNotFoundError, IOError): # given, I assume this is all error exceptions
         print("Error reading {}".format(FILENAME))  # checks for file
