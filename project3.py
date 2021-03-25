@@ -61,12 +61,14 @@ def read_markets(filename):
             zip_farmers[zip_code] = [market_tuple]
 
         if town in towns_zip.keys():
-            town_mapping = towns_zip[town]
-            town_mapping.add(zip_code)
-            town_mapping[town] = town_mapping #this may not work and need dif name
+            town_mapping_loop = towns_zip[town]
+            town_mapping_loop.add(zip_code)
+            towns_zip[town] = town_mapping_loop # this may not work and need dif name
 
         else:
-            town_mapping[town] = [market_tuple] #breaks it
+            town_mapping_loop_else = set()
+            town_mapping_loop_else.add(zip_code)
+            towns_zip[town] = town_mapping_loop_else # breaks it
 
     return zip_farmers, towns_zip
 
@@ -124,6 +126,7 @@ if __name__ == "__main__":
 
             else:
                 print("No farmers markets for that zip")
+
 
     except (FileNotFoundError, IOError): # given, I assume this is all error exceptions
         print("Error reading {}".format(FILENAME))  # checks for file
