@@ -37,17 +37,17 @@ def read_markets(filename):
         # get rid of long and lat
         market_pieces = market_pieces[0:5]
 
-        # remove non-zip code markets if time allows
+        # fixes the ones without a zip code
+        if not market_pieces[4]:
+            market_pieces[4] = "00000"
+        market_tuple = tuple(market_pieces)
 
         # part name and location
-        state = market_pieces[0]
-        market_name = market_pieces[1]
-        street = market_pieces[2]
-        town = market_pieces[3]
-        zip_code = market_pieces[4]
-
-        # make market pieces into a tuple
-        market_tuple = tuple(market_pieces)
+        state = market_tuple[0]
+        market_name = market_tuple[1]
+        street = market_tuple[2]
+        town = market_tuple[3]
+        zip_code = market_tuple[4]
 
         # create a loop to map each zipcode to associated
         # only needs to go on zips that are in our list
@@ -72,7 +72,10 @@ def read_markets(filename):
             town_mapping_loop_else.add(zip_code)
             towns_zip[town] = town_mapping_loop_else # breaks it
 
+        line = file.readline()
+
     return zip_code_to_market, towns_zip
+
 
 
 def print_market(market):
@@ -106,7 +109,7 @@ if __name__ == "__main__":
         while True:
             # exit if "quit"
             # piazza said only terminate on quit, not on error
-            if input_zip == "quit" or "Quit":
+            if input_zip == "quit":
                 break
 
             # sort into two loops, numeric and alphabetical
