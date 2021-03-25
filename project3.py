@@ -17,7 +17,7 @@ def read_markets(filename):
     file = open(filename, "r")
 
     # create blanks
-    zip_farmers = {}
+    zip_code_to_market = {}
     towns_zip = {}
 
     # read
@@ -37,6 +37,8 @@ def read_markets(filename):
         # get rid of long and lat
         market_pieces = market_pieces[0:5]
 
+        # remove non-zip code markets if time allows
+
         # part name and location
         state = market_pieces[0]
         market_name = market_pieces[1]
@@ -49,16 +51,16 @@ def read_markets(filename):
 
         # create a loop to map each zipcode to associated
         # only needs to go on zips that are in our list
-        if zip_code in zip_farmers:
-            zip_code_mapping = zip_farmers[zip_code]
+        if zip_code in zip_code_to_market:
+            zip_code_mapping = zip_code_to_market[zip_code]
             zip_code_mapping.append(market_tuple)
-            zip_farmers[zip_code] = zip_code_mapping
+            zip_code_to_market[zip_code] = zip_code_mapping
 
             # TA suggested exclude ones without zip
             # i.e. like 209, shows as zip = "none"
 
         else:
-            zip_farmers[zip_code] = [market_tuple]
+            zip_code_to_market[zip_code] = [market_tuple]
 
         if town in towns_zip.keys():
             town_mapping_loop = towns_zip[town]
@@ -70,7 +72,7 @@ def read_markets(filename):
             town_mapping_loop_else.add(zip_code)
             towns_zip[town] = town_mapping_loop_else # breaks it
 
-    return zip_farmers, towns_zip
+    return zip_code_to_market, towns_zip
 
 
 def print_market(market):
