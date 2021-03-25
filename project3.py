@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
         # your main loop should be here
 
-        input_zip = input("What is your zipcode or town? \n")
+        input_zip = input("What is your zipcode or town? \n").title()
         while True:
             # exit if "quit"
             # piazza said only terminate on quit, not on error
@@ -133,13 +133,15 @@ if __name__ == "__main__":
                     print("Not found")
 
                 # city search
+
+                # make non-case sensitive
                 else:
                     for town in town_to_zips[input_zip]:
                         for market in zip_to_market[town]:
                             print(print_market(market))
 
             # prompt
-            input_zip = input("Enter a zipcode or town\n")
+            input_zip = input("Enter a zipcode or town\n").title()
 
     except (FileNotFoundError, IOError): # given, I assume this is all error exceptions
         print("Error reading {}".format(FILENAME))  # checks for file
