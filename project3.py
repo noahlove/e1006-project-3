@@ -114,24 +114,32 @@ if __name__ == "__main__":
 
             # sort into two loops, numeric and alphabetical
 
-            # city search (alphabetical)
+            # zip codes numeric
 
-            if input_zip.isalpha():
-                if input_zip not in zip_to_market:
-                    print("No available farmers")
-                else:
-                    for town in zip_to_market[input_zip]:
-                        for market_name in zip_to_market[town]:
-                            print(print_market(town))
-
-            # zip code search
             if input_zip.isnumeric():
-                for input_zip in zip_to_market[input_zip]:
-                    print(print_market(town))
+                # if not there
+                if input_zip not in zip_to_market:
+                    print("Not found")
 
+                # search for with zip
+                else:
+                    for market in zip_to_market[input_zip]:
+                        print(print_market(market))
+
+            # city search
             else:
-                print("No farmers markets for that zip")
+                # wrong input
+                if input_zip not in town_to_zips:
+                    print("Not found")
 
+                # city search
+                else:
+                    for town in town_to_zips[input_zip]:
+                        for market in zip_to_market[town]:
+                            print(print_market(market))
+
+            # prompt
+            input_zip = input("Enter a zipcode or town\n")
 
     except (FileNotFoundError, IOError): # given, I assume this is all error exceptions
         print("Error reading {}".format(FILENAME))  # checks for file
